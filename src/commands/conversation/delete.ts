@@ -1,22 +1,22 @@
-import { window } from 'vscode'
-import { Command } from '../commandManager'
-import { IConversation } from '@app/types'
-import { ConversationStorageService } from '@app/services'
+import { window } from "vscode";
+import { Command } from "../commandManager";
+import { IConversation } from "@app/types";
+import { ConversationStorageService } from "@app/services";
 
 export default class DeleteConversationCommand implements Command {
-  public readonly id = '_vscode-openai.conversation.delete'
+  public readonly id = "_syntax-by-ai.conversation.delete";
 
   public execute(args: { data: IConversation }) {
     window
       .showInformationMessage(
-        'Are you sure you want to delete this conversation?',
-        'Yes',
-        'No'
+        "Are you sure you want to delete this conversation?",
+        "Yes",
+        "No"
       )
       .then((answer) => {
-        if (answer === 'Yes') {
-          ConversationStorageService.instance.delete(args.data.conversationId)
+        if (answer === "Yes") {
+          ConversationStorageService.instance.delete(args.data.conversationId);
         }
-      })
+      });
   }
 }

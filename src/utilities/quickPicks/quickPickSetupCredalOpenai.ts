@@ -1,5 +1,5 @@
 /**
- * This function runs a multistep configuration for vscode-openai
+ * This function runs a multistep configuration for syntax-by-ai
  * 	Steps:
  * 		1 - Base Url (openai.com/v1)
  * 		2 - ApiKey for openai.com service
@@ -7,9 +7,9 @@
  * 		Store and activate configuration
  */
 
-import { QuickPickItem, CancellationToken, ExtensionContext } from 'vscode'
-import { ConfigurationSettingService } from '@app/services'
-import { SecretStorageService, MultiStepInput } from '@app/apis/vscode'
+import { QuickPickItem, CancellationToken, ExtensionContext } from "vscode";
+import { ConfigurationSettingService } from "@app/services";
+import { SecretStorageService, MultiStepInput } from "@app/apis/vscode";
 
 /**
  * This function sets up a quick pick menu for configuring the OpenAI service provider.
@@ -20,20 +20,20 @@ export async function quickPickSetupCredalOpenai(
   _context: ExtensionContext
 ): Promise<void> {
   interface State {
-    title: string
-    step: number
-    totalSteps: number
-    openaiApiKey: string
-    quickPickInferenceModel: QuickPickItem
+    title: string;
+    step: number;
+    totalSteps: number;
+    openaiApiKey: string;
+    quickPickInferenceModel: QuickPickItem;
   }
 
   async function collectInputs() {
-    const state = {} as Partial<State>
-    await MultiStepInput.run((input) => inputOpenaiApiKey(input, state))
-    return state as State
+    const state = {} as Partial<State>;
+    await MultiStepInput.run((input) => inputOpenaiApiKey(input, state));
+    return state as State;
   }
 
-  const title = 'Configure Service Provider (credal.ai)'
+  const title = "Configure Service Provider (credal.ai)";
 
   /**
    * This function collects user input for the OpenAI API key and returns it as a state object.
@@ -50,13 +50,13 @@ export async function quickPickSetupCredalOpenai(
       step: 1,
       totalSteps: 2,
       ignoreFocusOut: true,
-      value: typeof state.openaiApiKey === 'string' ? state.openaiApiKey : '',
-      prompt: '$(key)  Enter you openai.com Api-Key',
-      placeholder: 'eyJh...CJ9.eyJ1dW...NDk2fQ.hiBLQ...66W18',
+      value: typeof state.openaiApiKey === "string" ? state.openaiApiKey : "",
+      prompt: "$(key)  Enter you openai.com Api-Key",
+      placeholder: "eyJh...CJ9.eyJ1dW...NDk2fQ.hiBLQ...66W18",
       validate: validateOpenaiApiKey,
       shouldResume: shouldResume,
-    })
-    return (input: MultiStepInput) => selectChatCompletionModel(input, state)
+    });
+    return (input: MultiStepInput) => selectChatCompletionModel(input, state);
   }
 
   /**
@@ -68,7 +68,7 @@ export async function quickPickSetupCredalOpenai(
     input: MultiStepInput,
     state: Partial<State>
   ) {
-    const models = await getAvailableModels()
+    const models = await getAvailableModels();
     // Display quick pick menu for selecting an OpenAI model and update application's state accordingly.
     // Return void since this is not used elsewhere in the code.
     state.quickPickInferenceModel = await input.showQuickPick({
@@ -77,11 +77,11 @@ export async function quickPickSetupCredalOpenai(
       totalSteps: 2,
       ignoreFocusOut: true,
       placeholder:
-        '$(symbol-function)  Selected Chat Completion DeploymentModel (if empty, no valid chat completion models found)',
+        "$(symbol-function)  Selected Chat Completion DeploymentModel (if empty, no valid chat completion models found)",
       items: models,
       activeItem: state.quickPickInferenceModel,
       shouldResume: shouldResume,
-    })
+    });
 
     // return (input: MultiStepInput) => selectEmbeddingModel(input, state)
   }
@@ -94,14 +94,14 @@ export async function quickPickSetupCredalOpenai(
   async function validateOpenaiApiKey(
     name: string
   ): Promise<string | undefined> {
-    const OPENAI_APIKEY_MIN_LENGTH = 1
-    const OPENAI_OAUTH2_STARTSWITH = 'ey'
+    const OPENAI_APIKEY_MIN_LENGTH = 1;
+    const OPENAI_OAUTH2_STARTSWITH = "ey";
 
     // Native openai service key or oauth2 token
     return name.length >= OPENAI_APIKEY_MIN_LENGTH &&
       name.startsWith(OPENAI_OAUTH2_STARTSWITH)
       ? undefined
-      : 'Invalid Api-Key or Token'
+      : "Invalid Api-Key or Token";
   }
 
   /**
@@ -113,31 +113,31 @@ export async function quickPickSetupCredalOpenai(
   async function getAvailableModels(
     _token?: CancellationToken
   ): Promise<QuickPickItem[]> {
-    const chatCompletionModels = ['gpt-3.5-turbo', 'gpt-4']
+    const chatCompletionModels = ["gpt-3.5-turbo", "gpt-4"];
 
     // Map each returned label into a QuickPickItem object with label property set as label value returned by API call.
-    return chatCompletionModels.map((label) => ({ label }))
+    return chatCompletionModels.map((label) => ({ label }));
   }
 
   function shouldResume() {
     // Could show a notification with the option to resume.
     return new Promise<boolean>((_resolve, _reject) => {
       /* noop */
-    })
+    });
   }
 
   //Start openai.com configuration processes
-  const state = await collectInputs()
-  const inferenceModel = state.quickPickInferenceModel.label
+  const state = await collectInputs();
+  const inferenceModel = state.quickPickInferenceModel.label;
 
-  await SecretStorageService.instance.setAuthApiKey(state.openaiApiKey)
+  await SecretStorageService.instance.setAuthApiKey(state.openaiApiKey);
   await ConfigurationSettingService.loadConfigurationService({
-    serviceProvider: 'CredalAI',
-    baseUrl: 'https://app.credal.ai/api/openai',
+    serviceProvider: "CredalAI",
+    baseUrl: "https://app.credal.ai/api/openai",
     defaultModel: inferenceModel,
-    embeddingModel: 'setup-required',
-    azureDeployment: 'setup-required',
-    embeddingsDeployment: 'setup-required',
-    azureApiVersion: '2023-05-15',
-  })
+    embeddingModel: "setup-required",
+    azureDeployment: "setup-required",
+    embeddingsDeployment: "setup-required",
+    azureApiVersion: "2023-05-15",
+  });
 }

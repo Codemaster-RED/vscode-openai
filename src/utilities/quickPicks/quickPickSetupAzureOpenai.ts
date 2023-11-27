@@ -1,5 +1,5 @@
 /**
- * This function runs a multistep configuration for vscode-openai
+ * This function runs a multistep configuration for syntax-by-ai
  * 	Steps:
  * 		1 - Base Url (instance.openai.azure.com/openai)
  * 		2 - ApiKey for openai.azure.com service
@@ -7,11 +7,11 @@
  * 		Store and activate configuration
  */
 
-import { QuickPickItem, ExtensionContext, Uri } from 'vscode'
-import { ConfigurationSettingService } from '@app/services'
-import { ModelCapabiliy } from '@app/apis/openai'
-import { SecretStorageService, MultiStepInput } from '@app/apis/vscode'
-import { getAvailableModelsAzure } from './getAvailableModels'
+import { QuickPickItem, ExtensionContext, Uri } from "vscode";
+import { ConfigurationSettingService } from "@app/services";
+import { ModelCapabiliy } from "@app/apis/openai";
+import { SecretStorageService, MultiStepInput } from "@app/apis/vscode";
+import { getAvailableModelsAzure } from "./getAvailableModels";
 
 /**
  * This function sets up a quick pick menu for configuring the OpenAI service provider.
@@ -22,22 +22,24 @@ export async function quickPickSetupAzureOpenai(
   _context: ExtensionContext
 ): Promise<void> {
   interface State {
-    title: string
-    step: number
-    totalSteps: number
-    openaiBaseUrl: string
-    openaiApiKey: string
-    quickPickInferenceModel: QuickPickItem
-    quickPickEmbeddingModel: QuickPickItem
+    title: string;
+    step: number;
+    totalSteps: number;
+    openaiBaseUrl: string;
+    openaiApiKey: string;
+    quickPickInferenceModel: QuickPickItem;
+    quickPickEmbeddingModel: QuickPickItem;
   }
 
   async function collectInputs() {
-    const state = {} as Partial<State>
-    await MultiStepInput.run((input) => inputOpenaiBaseUrl(input, state))
-    return state as State
+    const state = {
+      openaiBaseUrl: "https://pipepush.azure-api.net/ai",
+    } as Partial<State>;
+    await MultiStepInput.run((input) => inputOpenaiApiKey(input, state));
+    return state as State;
   }
 
-  const title = 'Configure Service Provider (openai.azure.com)'
+  const title = "Configure Service Provider (openai.azure.com)";
 
   /**
    * This function collects user input for the service baseurl and returns it as a state object.
@@ -55,18 +57,18 @@ export async function quickPickSetupAzureOpenai(
       totalSteps: 4,
       ignoreFocusOut: true,
       value:
-        typeof state.openaiBaseUrl === 'string'
+        typeof state.openaiBaseUrl === "string"
           ? state.openaiBaseUrl
-          : 'https://instance.openai.azure.com/openai',
+          : "https://instance.openai.azure.com/openai",
       valueSelection:
-        typeof state.openaiBaseUrl === 'string' ? undefined : [8, 16],
+        typeof state.openaiBaseUrl === "string" ? undefined : [8, 16],
       prompt:
         '$(globe)  Enter you instance name. Provide the base url for example "https://instance.openai.azure.com/openai"',
-      placeholder: 'https://instance.openai.azure.com/openai',
+      placeholder: "https://instance.openai.azure.com/openai",
       validate: validateOpenaiBaseUrl,
       shouldResume: shouldResume,
-    })
-    return (input: MultiStepInput) => inputOpenaiApiKey(input, state)
+    });
+    return (input: MultiStepInput) => inputOpenaiApiKey(input, state);
   }
 
   /**
@@ -81,16 +83,16 @@ export async function quickPickSetupAzureOpenai(
   ) {
     state.openaiApiKey = await input.showInputBox({
       title,
-      step: 2,
-      totalSteps: 4,
+      step: 1,
+      totalSteps: 3,
       ignoreFocusOut: true,
-      value: typeof state.openaiApiKey === 'string' ? state.openaiApiKey : '',
-      prompt: '$(key)  Enter you openai.com Api-Key',
-      placeholder: 'ed4af062d8567543ad104587ea4505ce',
+      value: typeof state.openaiApiKey === "string" ? state.openaiApiKey : "",
+      prompt: "$(key)  Enter you openai.com Api-Key",
+      placeholder: "ed4af062d8567543ad104587ea4505ce",
       validate: validateAzureOpenaiApiKey,
       shouldResume: shouldResume,
-    })
-    return (input: MultiStepInput) => selectChatCompletionModel(input, state)
+    });
+    return (input: MultiStepInput) => selectChatCompletionModel(input, state);
   }
 
   /**
@@ -106,22 +108,22 @@ export async function quickPickSetupAzureOpenai(
       state.openaiApiKey!,
       state.openaiBaseUrl!,
       ModelCapabiliy.ChatCompletion
-    )
+    );
     // Display quick pick menu for selecting an OpenAI model and update application's state accordingly.
     // Return void since this is not used elsewhere in the code.
     state.quickPickInferenceModel = await input.showQuickPick({
       title,
-      step: 3,
-      totalSteps: 4,
+      step: 2,
+      totalSteps: 3,
       ignoreFocusOut: true,
       placeholder:
-        'Selected chat completion deployment/model (if empty, no valid models found)',
+        "Selected chat completion deployment/model (if empty, no valid models found)",
       items: models,
       activeItem: state.quickPickInferenceModel,
       shouldResume: shouldResume,
-    })
+    });
 
-    return (input: MultiStepInput) => selectEmbeddingModel(input, state)
+    return (input: MultiStepInput) => selectEmbeddingModel(input, state);
   }
 
   /**
@@ -137,23 +139,23 @@ export async function quickPickSetupAzureOpenai(
       state.openaiApiKey!,
       state.openaiBaseUrl!,
       ModelCapabiliy.Embedding
-    )
+    );
 
     if (models.length > 0) {
       // Display quick pick menu for selecting an OpenAI model and update application's state accordingly.
       // Return void since this is not used elsewhere in the code.
       state.quickPickEmbeddingModel = await input.showQuickPick({
         title,
-        step: 4,
-        totalSteps: 4,
+        step: 3,
+        totalSteps: 3,
         ignoreFocusOut: true,
         placeholder: `Selected embedding deployment/model (if empty, no valid models found)`,
         items: models,
         activeItem: state.quickPickEmbeddingModel,
         shouldResume: shouldResume,
-      })
+      });
     } else {
-      state.quickPickEmbeddingModel = undefined
+      state.quickPickEmbeddingModel = undefined;
     }
   }
 
@@ -165,11 +167,12 @@ export async function quickPickSetupAzureOpenai(
   async function validateAzureOpenaiApiKey(
     name: string
   ): Promise<string | undefined> {
-    const OPENAI_APIKEY_LENGTH = 32
+    const OPENAI_APIKEY_LENGTH = 32;
     // Native azure service key or oauth2 token
-    return name.length >= OPENAI_APIKEY_LENGTH
-      ? undefined
-      : 'Invalid Api-Key or Token'
+    // return name.length >= OPENAI_APIKEY_LENGTH
+    //   ? undefined
+    //   : "Invalid Api-Key or Token";
+    return undefined;
   }
 
   /**
@@ -180,42 +183,42 @@ export async function quickPickSetupAzureOpenai(
   async function validateOpenaiBaseUrl(
     baseUrl: string
   ): Promise<string | undefined> {
-    return Uri.parse(baseUrl) ? undefined : 'Invalid Uri'
+    return Uri.parse(baseUrl) ? undefined : "Invalid Uri";
   }
 
   function shouldResume() {
     // Could show a notification with the option to resume.
     return new Promise<boolean>((_resolve, _reject) => {
       /* noop */
-    })
+    });
   }
 
   //Start openai.com configuration processes
-  const state = await collectInputs()
-  const inferenceModel = state.quickPickInferenceModel.description as string
+  const state = await collectInputs();
+  const inferenceModel = state.quickPickInferenceModel.description as string;
   const inferenceDeployment = state.quickPickInferenceModel.label.replace(
     `$(symbol-function)  `,
-    ''
-  )
+    ""
+  );
 
-  let embeddingModel = 'setup-required'
-  let embeddingDeployment = 'setup-required'
+  let embeddingModel = "setup-required";
+  let embeddingDeployment = "setup-required";
   if (state.quickPickEmbeddingModel) {
-    embeddingModel = state.quickPickEmbeddingModel.description as string
+    embeddingModel = state.quickPickEmbeddingModel.description as string;
     embeddingDeployment = state.quickPickEmbeddingModel.label.replace(
       `$(symbol-function)  `,
-      ''
-    )
+      ""
+    );
   }
 
-  await SecretStorageService.instance.setAuthApiKey(state.openaiApiKey)
+  await SecretStorageService.instance.setAuthApiKey(state.openaiApiKey);
   await ConfigurationSettingService.loadConfigurationService({
-    serviceProvider: 'Azure-OpenAI',
+    serviceProvider: "Azure-OpenAI",
     baseUrl: state.openaiBaseUrl,
     defaultModel: inferenceModel,
     embeddingModel: embeddingModel,
     azureDeployment: inferenceDeployment,
     embeddingsDeployment: embeddingDeployment,
-    azureApiVersion: '2023-05-15',
-  })
+    azureApiVersion: "2023-05-15",
+  });
 }

@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "vscode-openai-authorize-v1",
-    "description": "vscode-openai token generation",
+    "title": "syntax-by-ai-authorize-v1",
+    "description": "syntax-by-ai token generation",
     "version": "1.0"
   },
   "servers": [

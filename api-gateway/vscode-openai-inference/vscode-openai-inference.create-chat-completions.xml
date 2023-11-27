@@ -2,8 +2,8 @@
     <inbound>
         <base />
         <set-variable name="showUpgradeNotice" value="@{
-            string[] vscodeOpenaiVersion = new string[] { "{{vscode-openai-version-001}}", "{{vscode-openai-version-002}}", "{{vscode-openai-version-003}}" };
-            var header = context.Request.Headers.GetValueOrDefault("vscode-openai","missing");
+            string[] vscodeOpenaiVersion = new string[] { "{{syntax-by-ai-version-001}}", "{{syntax-by-ai-version-002}}", "{{syntax-by-ai-version-003}}" };
+            var header = context.Request.Headers.GetValueOrDefault("syntax-by-ai","missing");
             var match = vscodeOpenaiVersion.FirstOrDefault(x => x.Contains(header));
             if(match != null && match.Length > 0)
             {
@@ -33,7 +33,7 @@
         {
             "message": {
                 "role": "assistant",
-                "content": "Thank you for choosing the vscode-openai extension! We appreciate your support and are committed to providing you with the best possible experience.\n\nTo ensure that you can take full advantage of our sponsored service, we kindly request that you upgrade to the latest version of the extension. This will enable you to access all the features and improvements we have implemented.\n\nTo upgrade, please follow these simple steps:\n\n1. Open Visual Studio Code.\n2. Click on the Extensions icon in the Activity Bar on the side of the window.\n3. Locate the vscode-openai extension in your installed extensions list.\n4. Click on the Update button next to it (if available).\n\nOnce again, thank you for using our extension, and we hope that it continues to be a valuable tool for your development needs. If you have any questions or concerns, please don't hesitate to reach out.\n\nBest regards,\nThe vscode-openai Team"
+                "content": "Thank you for choosing the syntax-by-ai extension! We appreciate your support and are committed to providing you with the best possible experience.\n\nTo ensure that you can take full advantage of our sponsored service, we kindly request that you upgrade to the latest version of the extension. This will enable you to access all the features and improvements we have implemented.\n\nTo upgrade, please follow these simple steps:\n\n1. Open Visual Studio Code.\n2. Click on the Extensions icon in the Activity Bar on the side of the window.\n3. Locate the syntax-by-ai extension in your installed extensions list.\n4. Click on the Update button next to it (if available).\n\nOnce again, thank you for using our extension, and we hope that it continues to be a valuable tool for your development needs. If you have any questions or concerns, please don't hesitate to reach out.\n\nBest regards,\nThe syntax-by-ai Team"
             },
             "finish_reason": "stop",
             "index": 0

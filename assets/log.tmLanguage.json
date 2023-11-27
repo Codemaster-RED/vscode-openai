@@ -1,7 +1,7 @@
 {
   "version": "1.0.0",
-  "name": "vscode-openai-log",
-  "scopeName": "vscode-openai.log",
+  "name": "syntax-by-ai-log",
+  "scopeName": "syntax-by-ai.log",
   "patterns": [
     {
       "match": "\\b(Trace)\\b:",

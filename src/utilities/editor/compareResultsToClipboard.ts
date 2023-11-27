@@ -1,7 +1,7 @@
-import { ConversationStorageService } from '@app/services'
-import { IChatCompletion, IConversation, IPersonaOpenAI } from '@app/types'
-import { ResponseFormat, createChatCompletion } from '@app/apis/openai'
-import { compareFileToClipboard } from '@app/apis/vscode'
+import { ConversationStorageService } from "@app/services";
+import { IChatCompletion, IConversation, IPersonaOpenAI } from "@app/types";
+import { ResponseFormat, createChatCompletion } from "@app/apis/openai";
+import { compareFileToClipboard } from "@app/apis/vscode";
 
 export const compareResultsToClipboard = async (
   persona: IPersonaOpenAI | undefined,
@@ -9,23 +9,23 @@ export const compareResultsToClipboard = async (
 ): Promise<void> => {
   if (persona && prompt) {
     const conversation: IConversation =
-      await ConversationStorageService.instance.create(persona)
+      await ConversationStorageService.instance.create(persona);
 
     const chatCompletion: IChatCompletion = {
       content: prompt,
-      author: 'vscode-openai-editor',
+      author: "syntax-by-ai-editor",
       timestamp: new Date().toLocaleString(),
       mine: false,
       completionTokens: 0,
       promptTokens: 0,
       totalTokens: 0,
-    }
-    conversation.chatMessages.splice(0) //clear welcome message
-    conversation.chatMessages.push(chatCompletion)
+    };
+    conversation.chatMessages.splice(0); //clear welcome message
+    conversation.chatMessages.push(chatCompletion);
     const result = await createChatCompletion(
       conversation,
       ResponseFormat.SourceCode
-    )
-    compareFileToClipboard(result?.content ? result?.content : '')
+    );
+    compareFileToClipboard(result?.content ? result?.content : "");
   }
-}
+};

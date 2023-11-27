@@ -2,6 +2,6 @@
   "editor.insertSpaces": false,
   "sonarlint.connectedMode.project": {
     "connectionId": "arbs-io",
-    "projectKey": "arbs-io_vscode-openai"
+    "projectKey": "arbs-io_syntax-by-ai"
   }
 }

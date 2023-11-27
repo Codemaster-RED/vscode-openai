@@ -1,8 +1,8 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "vscode-openai-inference-v1",
-    "description": "vscode-openai completions and search",
+    "title": "syntax-by-ai-inference-v1",
+    "description": "syntax-by-ai completions and search",
     "version": "1.0"
   },
   "servers": [
