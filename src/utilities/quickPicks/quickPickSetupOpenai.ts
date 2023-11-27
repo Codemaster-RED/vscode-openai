@@ -85,7 +85,7 @@ export async function quickPickSetupOpenai(
       totalSteps: 4,
       ignoreFocusOut: true,
       value: typeof state.openaiApiKey === "string" ? state.openaiApiKey : "",
-      prompt: `$(key)  Enter you openai.com Api-Key`,
+      prompt: `$(key)  Enter your Syntax By AI API Key`,
       placeholder: "sk-8i6055nAY3eAwARfHFjiT5BlbkFJAEFUvG5GwtAV2RiwP87h",
       validate: validateOpenaiApiKey,
       shouldResume: shouldResume,

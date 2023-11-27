@@ -87,7 +87,7 @@ export async function quickPickSetupAzureOpenai(
       totalSteps: 3,
       ignoreFocusOut: true,
       value: typeof state.openaiApiKey === "string" ? state.openaiApiKey : "",
-      prompt: "$(key)  Enter you openai.com Api-Key",
+      prompt: "$(key)  Enter your Syntax By AI API Key",
       placeholder: "ed4af062d8567543ad104587ea4505ce",
       validate: validateAzureOpenaiApiKey,
       shouldResume: shouldResume,
