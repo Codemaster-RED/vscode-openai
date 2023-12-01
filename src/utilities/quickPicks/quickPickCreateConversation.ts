@@ -66,65 +66,71 @@ export async function quickPickCreateConversation(
           "Assists with design, develop, and maintain of software applications and systems",
       },
       {
-        label: "System Administrator",
+        label: "Test Case Analyst",
         detail:
-          "Assists with managing and maintain computer systems, networks, and servers",
-      },
-      {
-        label: "Network Engineer",
-        detail:
-          "Assists with design, implement, and maintain computer networks for organizations",
-      },
-      {
-        label: "Database Administrator",
-        detail:
-          "Assists with managing and maintain databases for organizations",
-      },
-      {
-        label: "IT Manager",
-        detail:
-          "Assists with technology infrastructure and operations of organizations",
-      },
-      {
-        label: "Project Manager",
-        detail:
-          "Assists with planning, execute, and monitor projects related to technology products and services",
-      },
-      {
-        label: "Business Analysts",
-        detail:
-          "Assists with analyzing business processes and requirements related to technology products and services",
-      },
-      {
-        label: "Quality Assurance Testers",
-        detail:
-          "Assists with testing software applications and systems to ensure quality control",
+          "Returns edge cases to cover in the implementation. Just paste your ticket requirements.",
       },
       {
         label: "Technical Writer",
         detail:
-          "Assists with creating technical documentation such as user manuals, online help, and training materials",
+          "Assists with creating technical documentation such as user manualsd and training materials",
       },
-      {
-        label: "User Experience Designers",
-        detail:
-          "Assists with designing and improve the user experience of software applications and systems",
-      },
-      {
-        label: "Product Manager",
-        detail:
-          "Assists with overseeing the development and launch of software products and services",
-      },
-      {
-        label: "Data Scientist",
-        detail:
-          "Assists with analyzing and interpret complex data sets to identify patterns and insights",
-      },
-      {
-        label: "Cyber Security Analysts",
-        detail:
-          "Assists with protecting computer systems and networks from cyber attacks and security breaches",
-      },
+      // {
+      //   label: "System Administrator",
+      //   detail:
+      //     "Assists with managing and maintain computer systems, networks, and servers",
+      // },
+      // {
+      //   label: "Network Engineer",
+      //   detail:
+      //     "Assists with design, implement, and maintain computer networks for organizations",
+      // },
+      // {
+      //   label: "Database Administrator",
+      //   detail:
+      //     "Assists with managing and maintain databases for organizations",
+      // },
+      // {
+      //   label: "IT Manager",
+      //   detail:
+      //     "Assists with technology infrastructure and operations of organizations",
+      // },
+      // {
+      //   label: "Project Manager",
+      //   detail:
+      //     "Assists with planning, execute, and monitor projects related to technology products and services",
+      // },
+      // {
+      //   label: "Business Analysts",
+      //   detail:
+      //     "Assists with analyzing business processes and requirements related to technology products and services",
+      // },
+      // {
+      //   label: "Quality Assurance Testers",
+      //   detail:
+      //     "Assists with testing software applications and systems to ensure quality control",
+      // },
+
+      // {
+      //   label: "User Experience Designers",
+      //   detail:
+      //     "Assists with designing and improve the user experience of software applications and systems",
+      // },
+      // {
+      //   label: "Product Manager",
+      //   detail:
+      //     "Assists with overseeing the development and launch of software products and services",
+      // },
+      // {
+      //   label: "Data Scientist",
+      //   detail:
+      //     "Assists with analyzing and interpret complex data sets to identify patterns and insights",
+      // },
+      // {
+      //   label: "Cyber Security Analysts",
+      //   detail:
+      //     "Assists with protecting computer systems and networks from cyber attacks and security breaches",
+      // },
       {
         label: "Cloud Architect",
         detail:
@@ -132,14 +138,13 @@ export async function quickPickCreateConversation(
       },
       {
         label: "DevOps Engineers",
-        detail:
-          "Assists with bridging the gap between development and operations teams by automating software delivery processes",
+        detail: "Assists with automating software delivery processes",
       },
-      {
-        label: "Enterprise Architect",
-        detail:
-          "Assists with designing and oversee the implementation of technology solutions that align with business goals and objectives",
-      },
+      // {
+      //   label: "Enterprise Architect",
+      //   detail:
+      //     "Assists with designing and oversee the implementation of technology solutions that align with business goals and objectives",
+      // },
     ];
     return quickPickItemTypes;
   }

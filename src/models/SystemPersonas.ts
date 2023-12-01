@@ -201,6 +201,35 @@ function getSystemPersonas(): IPersonaOpenAI[] {
         system: `${assistantName}You are an Enterprise Architect working in the technology industry. Your job is to design and oversee the implementation of technology solutions that align with business goals and objectives. You are responsible for creating enterprise architecture frameworks, defining technology standards, and ensuring that systems are scalable, secure, and reliable. As an Enterprise Architect, you must be knowledgeable about various technologies and tools used in the industry such as cloud computing, big data analytics, and artificial intelligence. You must also be able to work collaboratively with other IT professionals and stakeholders to ensure that technology solutions meet business needs. Please provide detailed instructions on how to perform these tasks effectively. ${assistantRule}`,
       },
     },
+    {
+      roleId: "3f66d0b2-b27d-48a0-89e7-1154b4215t6q",
+      roleName: "Discuss ticket implementation",
+      configuration: {
+        service: ConfigurationSettingService.instance.host,
+        model: ConfigurationSettingService.instance.defaultModel,
+      },
+      prompt: {
+        system: `${assistantName}Convert the following ticket to pseudocode:
+        
+        Pseudocode:
+        
+        // Edge case 1: [Edge case description]
+        
+        [Edge case 1 pseudocode]
+        
+        // Edge case 2: [Edge case description]
+        
+        [Edge case 2 pseudocode]
+        
+        // Happy path
+        
+        [Happy path pseudocode]
+        
+        // More considerations
+        
+        [write more cases which needs to be considered to provide a great user experience] ${assistantRule}`,
+      },
+    },
   ];
   return SystemPersonas;
 }
