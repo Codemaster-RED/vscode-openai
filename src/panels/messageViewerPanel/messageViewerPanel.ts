@@ -171,8 +171,8 @@ export class MessageViewerPanel {
           <meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src * 'self' data: https:; style-src ${webview.cspSource} 'unsafe-inline'; script-src 'nonce-${nonce}';">
           <title>Claimset</title>
         </head>
-        <body style="margin:0;padding:0">
-          <div id="root" theme='${panelTheme}' assistantColor='${cccs.assistantColor}' assistantBackground='${cccs.assistantBackground}' userColor='${cccs.userColor}' userBackground='${cccs.userBackground}' data-vscode-context='{"webviewSection": "main", "preventDefaultContextMenuItems": true}' />
+        <body style="margin:0;padding:0;">
+          <div id="root" theme='${panelTheme}' assistantColor='${cccs.assistantColor}' assistantBackground='${cccs.assistantBackground}' userColor='${cccs.userColor}' userBackground='${cccs.userBackground}' backgroundImage='${cccs.assistantBackgroundImage}' data-vscode-context='{"webviewSection": "main", "preventDefaultContextMenuItems": true}' />
           <script type="module" nonce="${nonce}" src="${scriptUri}"></script>
         </body>
       </html>
